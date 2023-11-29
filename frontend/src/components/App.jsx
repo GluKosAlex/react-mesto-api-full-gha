@@ -58,7 +58,7 @@ function App() {
     about: '...',
     avatar: avatarPlaceholder,
     _id: '',
-    cohort: ''
+    cohort: '',
   });
 
   const [userEmail, setUserEmail] = useState('');
@@ -66,9 +66,9 @@ function App() {
   function authToken(token) {
     auth
       .tokenCheck(token)
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
-          return res.json().then(err => {
+          return res.json().then((err) => {
             return Promise.reject(`Ошибка: ${res.status} ${err.message}`);
           });
         } else {
@@ -79,7 +79,7 @@ function App() {
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         navigate('/sign-in', { replace: true });
       });
@@ -97,14 +97,14 @@ function App() {
           setCurrentUser(userData);
           setCards(cardsData);
         })
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
     }
   }, [loggedIn]);
 
   function handleRegister({ email, password }) {
-    return auth.register({ email, password }).then(res => {
+    return auth.register({ email, password }).then((res) => {
       if (!res.ok) {
-        return res.json().then(err => {
+        return res.json().then((err) => {
           setInfoTooltipContent({ icon: failIcon, text: err.message || err.error || failText });
           setIsInfoTooltipOpen(true);
           return Promise.reject(`Ошибка: ${res.status} ${err.message}`);
@@ -119,15 +119,15 @@ function App() {
   }
 
   function handleLogin({ email, password }) {
-    return auth.authorize({ email, password }).then(res => {
+    return auth.authorize({ email, password }).then((res) => {
       if (!res.ok) {
-        return res.json().then(err => {
+        return res.json().then((err) => {
           setInfoTooltipContent({ icon: failIcon, text: err.message || failText });
           setIsInfoTooltipOpen(true);
           return Promise.reject(`Ошибка: ${res.status} ${err.message}`);
         });
       } else {
-        return res.json().then(res => {
+        return res.json().then((res) => {
           setLoggedIn(true);
           setUserEmail(email);
           localStorage.setItem('token', res.token);
@@ -144,14 +144,14 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(like => like._id === currentUser._id);
+    const isLiked = card.likes.some((like) => like._id === currentUser._id);
 
     api
       .changeLikeCardStatus(card._id, !isLiked)
-      .then(newCard => {
-        setCards(cards => cards.map(c => (c._id === card._id ? newCard : c)));
+      .then((newCard) => {
+        setCards((cards) => cards.map((c) => (c._id === card._id ? newCard : c)));
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   }
 
   function handleCardDeleteClick(card) {
@@ -166,12 +166,12 @@ function App() {
 
     api
       .deleteCard(card._id)
-      .then(res => {
-        setCards(cards => cards.filter(c => c._id !== card._id));
+      .then((res) => {
+        setCards((cards) => cards.filter((c) => c._id !== card._id));
         console.log(res.message);
         setIsDeleteConfirmModalOpen(false);
       })
-      .catch(err => console.error(err))
+      .catch((err) => console.error(err))
       .finally(() => setDeleteConfirmBtnText('Да'));
   }
 
@@ -180,9 +180,9 @@ function App() {
 
     api
       .setUserInfo(userData)
-      .then(newUserData => setCurrentUser(newUserData))
+      .then((newUserData) => setCurrentUser(newUserData))
       .then(() => closeAllModals())
-      .catch(err => console.error(err))
+      .catch((err) => console.error(err))
       .finally(() => setEditProfileBtnText('Сохранить'));
   }
 
@@ -190,9 +190,9 @@ function App() {
     setEditAvatarBtnText('Сохранение...');
     api
       .setUserAvatar(newAvatar)
-      .then(newUserData => setCurrentUser(newUserData))
+      .then((newUserData) => setCurrentUser(newUserData))
       .then(() => closeAllModals())
-      .catch(err => console.error(err))
+      .catch((err) => console.error(err))
       .finally(() => setEditAvatarBtnText('Сохранить'));
   }
 
@@ -201,9 +201,9 @@ function App() {
 
     api
       .setNewCard(card)
-      .then(newCard => setCards([newCard, ...cards]))
+      .then((newCard) => setCards([newCard, ...cards]))
       .then(() => closeAllModals())
-      .catch(err => console.error(err))
+      .catch((err) => console.error(err))
       .finally(() => setAddPlaceBtnText('Создать'));
   }
 
@@ -252,7 +252,7 @@ function App() {
                   </Link>
                   <button
                     className='menu__toggle menu__toggle_closed'
-                    onClick={e => {
+                    onClick={(e) => {
                       e.target.classList.toggle('menu__toggle_closed');
                       e.target.parentNode.classList.toggle('header__menu_closed');
                     }}
@@ -302,11 +302,7 @@ function App() {
                 btnText={deleteConfirmBtnText}
               ></DeleteConfirmModal>
 
-              <ModalWithImage
-                card={selectedCard}
-                onClose={closeAllModals}
-                isOpen={isImageModalOpen}
-              />
+              <ModalWithImage card={selectedCard} onClose={closeAllModals} isOpen={isImageModalOpen} />
             </ProtectedRoute>
           }
         />
