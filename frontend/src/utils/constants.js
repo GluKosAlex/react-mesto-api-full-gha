@@ -1,6 +1,6 @@
 const INFO_TOOLTIP_TEXT = {
   successText: 'Вы успешно зарегистрировались!',
-  failText: 'Что-то пошло не так!'
+  failText: 'Что-то пошло не так!',
 };
 
 const CONFIG = {
@@ -22,18 +22,11 @@ const CONFIG = {
   errorClass: 'form__input-error_visible',
   modalOpenedClass: 'modal_opened',
   apiConfig: {
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-74',
+    baseUrl: 'https://http://mesto.glukosalex.nomoredomainsmonster.ru/',
     headers: {
-      authorization: 'f79f0cff-136a-4085-9856-94d44d998acc',
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   },
-  authConfig: {
-    baseUrl: 'https://auth.nomoreparties.co',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
 };
 
 export { CONFIG as config, INFO_TOOLTIP_TEXT };

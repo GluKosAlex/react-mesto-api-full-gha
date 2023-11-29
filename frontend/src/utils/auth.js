@@ -28,12 +28,12 @@ class Auth {
       method: 'GET',
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${jwt}`
+        authorization: `Bearer ${jwt}`
       }
     })
   }
 }
 
-const auth = new Auth(config.authConfig);
+const auth = new Auth(config.apiConfig);
 
 export default auth;
