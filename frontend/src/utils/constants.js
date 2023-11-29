@@ -22,7 +22,7 @@ const CONFIG = {
   errorClass: 'form__input-error_visible',
   modalOpenedClass: 'modal_opened',
   apiConfig: {
-    baseUrl: 'http://api.mesto.glukosalex.nomoredomainsmonster.ru',
+    baseUrl: 'https://api.mesto.glukosalex.nomoredomainsmonster.ru',
     headers: {
       'Content-Type': 'application/json',
     },
