@@ -3,7 +3,6 @@ import 'dotenv/config';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
 import router from './routes/index.js';
-import cors from './middlewares/cors.js';
 
 const { PORT = 3000, CONN_STR = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
@@ -14,8 +13,6 @@ const app = express();
 app.use(helmet());
 
 app.use(json());
-
-app.use(cors);
 
 app.use(router);
 

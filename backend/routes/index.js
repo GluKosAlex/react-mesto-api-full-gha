@@ -9,8 +9,14 @@ import auth from '../middlewares/auth.js';
 import CustomError from '../utils/customError.js';
 import globalErrorHandler from '../controllers/errors.js';
 import userAuthValidate from '../middlewares/userAuthValidate.js';
+import cors from '../middlewares/cors.js';
+import { requestLogger, errorLogger } from '../middlewares/logger.js';
 
 const router = new Router();
+
+router.use(requestLogger);
+
+router.use(cors);
 
 router.use('/users', auth, usersRouter);
 router.use('/cards', auth, cardsRouter);
@@ -23,6 +29,8 @@ router.use('*', auth, (req, res, next) => {
   );
   next(err);
 });
+
+router.use(errorLogger);
 
 router.use(errors());
 router.use(globalErrorHandler);
