@@ -92,6 +92,7 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
+      api.setAuthorizationHeader(localStorage.getItem('token'));
       Promise.all([api.getUserInfo(), api.getInitialCards()])
         .then(([userData, cardsData]) => {
           setCurrentUser(userData);
@@ -130,7 +131,6 @@ function App() {
         return res.json().then((res) => {
           setLoggedIn(true);
           setUserEmail(email);
-          api.setAuthorizationHeader(res.token);
           localStorage.setItem('token', res.token);
         });
       }
