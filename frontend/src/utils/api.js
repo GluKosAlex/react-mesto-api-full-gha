@@ -16,6 +16,13 @@ class Api {
     }
   }
 
+  setAuthorizationHeader(jwt) {
+    this._headers = {
+      ...this._headers,
+      authorization: `Bearer ${jwt}`,
+    };
+  }
+
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
@@ -79,12 +86,6 @@ class Api {
   }
 }
 
-const api = new Api({
-  baseUrl: config.apiConfig.baseUrl,
-  headers: {
-    authorization: `Bearer ${localStorage.getItem('token')}`,
-    ...config.apiConfig.headers,
-  },
-});
+const api = new Api(config.apiConfig);
 
 export default api;

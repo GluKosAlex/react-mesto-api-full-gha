@@ -130,6 +130,7 @@ function App() {
         return res.json().then((res) => {
           setLoggedIn(true);
           setUserEmail(email);
+          api.setAuthorizationHeader(res.token);
           localStorage.setItem('token', res.token);
         });
       }
