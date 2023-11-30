@@ -10,7 +10,7 @@ class Api {
     if (res.ok) {
       return res.json();
     } else {
-      return res.json().then(err => {
+      return res.json().then((err) => {
         return Promise.reject(`Ошибка: ${res.status} ${err.message}`);
       });
     }
@@ -19,7 +19,7 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
-      headers: this._headers
+      headers: this._headers,
     }).then(this._getResponse);
   }
 
@@ -29,8 +29,8 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({
         name,
-        about
-      })
+        about,
+      }),
     }).then(this._getResponse);
   }
 
@@ -39,8 +39,8 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar
-      })
+        avatar,
+      }),
     }).then(this._getResponse);
   }
 
@@ -50,15 +50,15 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({
         name,
-        link
-      })
+        link,
+      }),
     }).then(this._getResponse);
   }
 
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: this._headers,
     }).then(this._getResponse);
   }
 
@@ -67,18 +67,24 @@ class Api {
 
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method,
-      headers: this._headers
+      headers: this._headers,
     }).then(this._getResponse);
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'GET',
-      headers: this._headers
+      headers: this._headers,
     }).then(this._getResponse);
   }
 }
 
-const api = new Api(config.apiConfig);
+const api = new Api({
+  baseUrl: config.apiConfig.baseUrl,
+  headers: {
+    authorization: `Bearer ${localStorage.getItem('token')}`,
+    ...config.apiConfig.headers,
+  },
+});
 
 export default api;
