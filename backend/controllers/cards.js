@@ -18,8 +18,8 @@ const createCard = asyncErrorHandler((req, res, next) => {
   const { _id } = req.user;
 
   return Card({ name, link, owner: _id })
-    .populate(['owner', 'likes'])
     .save()
+    .then((card) => card.populate(['owner', 'likes']))
     .then((card) => res.status(StatusCodes.CREATED).send(card))
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
