@@ -8,6 +8,7 @@ export default function Card({ cardData, onCardClick, onCardLike, onCardDelete }
 
   const { _id: currentUserId } = useContext(CurrentUserContext);
   const { likes, name, link, owner } = cardData;
+  console.log(cardData);
 
   const isOwn = owner._id === currentUserId;
   const isLiked = likes.some(like => like._id === currentUserId);
