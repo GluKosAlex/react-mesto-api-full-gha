@@ -74,7 +74,7 @@ function App() {
         } else {
           setLoggedIn(true);
           localStorage.setItem('loggedIn', 'true');
-          res.json().then(({ data }) => {
+          res.json().then((data) => {
             setUserEmail(data.email);
           });
         }
