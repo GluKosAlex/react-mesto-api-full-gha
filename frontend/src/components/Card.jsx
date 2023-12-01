@@ -10,6 +10,7 @@ export default function Card({ cardData, onCardClick, onCardLike, onCardDelete }
   const { likes, name, link, owner } = cardData;
 
   const isOwn = owner._id === currentUserId;
+  console.log(cardData, isOwn);
   const isLiked = likes.some(like => like._id === currentUserId);
 
   return (

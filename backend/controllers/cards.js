@@ -58,7 +58,7 @@ const toggleCardLike = (action, req, res, next) => {
   const { cardId } = req.params;
 
   return Card.findByIdAndUpdate(cardId, { [action]: { likes: _id } }, { new: true })
-    .populate('likes')
+    .populate(['owner', 'likes'])
     .orFail()
     .then((updatedCard) => res.send(updatedCard))
     .catch((error) => {
