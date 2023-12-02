@@ -17,6 +17,11 @@ router.use(requestLogger);
 
 router.use('/users', auth, usersRouter);
 router.use('/cards', auth, cardsRouter);
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 router.post('/signin', userAuthValidate, login);
 router.post('/signup', userAuthValidate, createUser);
 router.use('*', auth, (req, res, next) => {
